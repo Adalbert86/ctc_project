@@ -21,3 +21,10 @@ Instructions to build and run:
 5. When this is complete, you can access "localhost:3000" address in your browser to see the running app.
 
 
+...
+
+To re-run the project after is has been stopped, please, type:
+docker run -p 3000:3000 --mount source=ctc_project_20180606_myvol1,target=/media/myvol1/ ctc_project_20180606
+
+
+
