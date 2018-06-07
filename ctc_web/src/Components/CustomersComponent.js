@@ -35,8 +35,13 @@ class CustomersComponent extends Component {
   refreshTable() {
     fetch("/customer")
       .then(res => res.json())
-      .then(customers => this.setState({ customers }));
-  }
+      .then(customers => this.setState({ customers }))
+           .catch( function() {
+      	console.log("Error, I will catch them here TODO");
+      	});
+      	}
+      
+      
 
   componentDidMount() {
     this.refreshTable();

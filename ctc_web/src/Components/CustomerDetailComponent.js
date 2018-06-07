@@ -43,13 +43,27 @@ class CustomerDetailComponent extends Component {
   refreshCertificateData() {
     fetch("/certificateByCustomer/" + this.props.match.params.id)
       .then(res => res.json())
-      .then(certificates => this.setState({ certificates }));
+      .then(certificates => this.setState({ certificates }))
+      .catch( function() {
+      	console.log("Error, I will catch them here TODO");
+      	});
+      
+      
+
+    
   }
 
   componentDidMount() {
     fetch("/customer/" + this.props.match.params.id)
       .then(res => res.json())
-      .then(customer => this.setState({ customer }));
+      .then(customer => this.setState({ customer }))
+.catch( function() {
+      	console.log("Error, I will catch them here TODO");
+      	});      
+      
+      
+        
+    
 
     this.refreshCertificateData();
   }

@@ -53,19 +53,6 @@ class NewCustomerComponent extends Component {
   }
 
   submitFormData(jsonPayload) {
-    // 	(async () => {
-    //   const rawResponse = await fetch('https://httpbin.org/post', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({a: 1, b: 'Textual content'})
-    //   });
-    //   const content = await rawResponse.json();
-    //
-    //   console.log(content);
-    // })();
 
     fetch("/customer", {
       method: "POST",
@@ -74,7 +61,16 @@ class NewCustomerComponent extends Component {
         "Content-Type": "application/json"
       },
       body: jsonPayload
+    })
+        .then(function() {
+        console.log("ok");
+    }).catch(function() {
+        console.log("error");
     });
+    
+    
+
+    
   }
 
   handleSubmit(event) {

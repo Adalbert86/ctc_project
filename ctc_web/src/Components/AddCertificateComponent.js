@@ -42,21 +42,11 @@ class CustomersComponent extends Component {
 
   handlePKChange(event) {
     this.setState({ privatekey: event.target.value });
-    //this.unlockSubmitButton();
   }
 
   handleBodyChange(event) {
     this.setState({ body: event.target.value });
-    //this.unlockSubmitButton();
   }
-
-  //    unlockSubmitButton() {
-  //   	if (this.isFormValidReadyToSend()) {
-  //   		this.setState({submitDisabled: false});
-  //   	} else {
-  //   	  	this.setState({submitDisabled: true});
-  //   	}
-  //   }
 
   handleSubmit(event) {
     if (this.isFormValidReadyToSend()) {
@@ -67,16 +57,14 @@ class CustomersComponent extends Component {
         body: this.state.body,
         status: "active"
       });
-      //this.submitFormData(jsonPayload);
 
-      fetch("/certificate", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: jsonPayload
-      });
+      fetch("/certificate", {method: "POST", headers: {Accept: "application/json",
+          "Content-Type": "application/json"}, body: jsonPayload })
+          .then( function() { console.log("ok"); }).catch( function() { console.log("Error while fetching data ... TODO"); });
+          
+
+
+    
 
       this.setState({ redirectToNewPage: true });
     } else {
