@@ -26,17 +26,50 @@ class CustomerDetailComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { customer: "", certificates: [], redirectToNewPage: false };
-
-    this.handleToggleBtnClick = this.handleToggleBtnClick.bind(this);
-    this.handleDeleteeBtnClick = this.handleDeleteeBtnClick.bind(this);
   }
 
-  handleToggleBtnClick(event) {
+  async handleToggleBtnClick(id) {
+    await fetch("/certificateToggle/" + id, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: []
+    }).catch(function() {
+      console.log("Error, I will catch them here TODO");
+    });
+
     this.refreshCertificateData();
-    event.preventDefault();
   }
 
-  handleDeleteeBtnClick(event) {
+  async handleCertDeleteBtnClick(id) {
+    await fetch("/certificate/" + id, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: []
+    }).catch(function() {
+      console.log("Error, I will catch them here TODO");
+    });
+
+    this.refreshCertificateData();
+  }
+
+  async handleDeleteeBtnClick(customerid) {
+    await fetch("/customer/" + customerid, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: []
+    }).catch(function() {
+      console.log("Error, I will catch them here TODO");
+    });
+
     this.setState({ redirectToNewPage: true });
   }
 
@@ -44,26 +77,18 @@ class CustomerDetailComponent extends Component {
     fetch("/certificateByCustomer/" + this.props.match.params.id)
       .then(res => res.json())
       .then(certificates => this.setState({ certificates }))
-      .catch( function() {
-      	console.log("Error, I will catch them here TODO");
-      	});
-      
-      
-
-    
+      .catch(function() {
+        console.log("Error, I will catch them here TODO");
+      });
   }
 
   componentDidMount() {
     fetch("/customer/" + this.props.match.params.id)
       .then(res => res.json())
       .then(customer => this.setState({ customer }))
-.catch( function() {
-      	console.log("Error, I will catch them here TODO");
-      	});      
-      
-      
-        
-    
+      .catch(function() {
+        console.log("Error, I will catch them here TODO");
+      });
 
     this.refreshCertificateData();
   }
@@ -100,12 +125,18 @@ class CustomerDetailComponent extends Component {
                 <td>{c.body}</td>
                 <td>{c.status}</td>
                 <td>
-                  <span onClick={this.handleToggleBtnClick}>
-                    <ToggleCertificateButton cert={c} />
+                  <span>
+                    <ToggleCertificateButton
+                      cert={c}
+                      onClick={this.handleToggleBtnClick.bind(this, c.id)}
+                    />
                   </span>
                   &nbsp;
-                  <span onClick={this.handleToggleBtnClick}>
-                    <CertificateDeleteButton cert={c} />
+                  <span>
+                    <CertificateDeleteButton
+                      cert={c}
+                      onClick={this.handleCertDeleteBtnClick.bind(this, c.id)}
+                    />
                   </span>
                 </td>
               </tr>
@@ -117,9 +148,13 @@ class CustomerDetailComponent extends Component {
         <Link to={"/addcertificate/" + this.props.match.params.id}>
           <Button bsStyle="primary">Add new certificate</Button>
         </Link>
-        <div onClick={this.handleDeleteeBtnClick}>
-          <DeleteCustomerButton customerid={this.props.match.params.id} />
-        </div>
+        <DeleteCustomerButton
+          customerid={this.props.match.params.id}
+          onClick={this.handleDeleteeBtnClick.bind(
+            this,
+            this.props.match.params.id
+          )}
+        />
       </Grid>
     );
   }

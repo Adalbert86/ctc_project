@@ -5,20 +5,6 @@ import { Button } from "react-bootstrap";
 class ToggleCertificateButton extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    fetch("/certificateToggle/" + this.props.cert.id, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: []
-    });
-
-    event.preventDefault();
   }
 
   getOppositeTextVerb() {
@@ -27,7 +13,7 @@ class ToggleCertificateButton extends Component {
 
   render() {
     return (
-      <Button bsStyle="info" onClick={this.handleSubmit}>
+      <Button bsStyle="info" onClick={this.props.onClick}>
         {this.getOppositeTextVerb()}
       </Button>
     );

@@ -58,13 +58,20 @@ class CustomersComponent extends Component {
         status: "active"
       });
 
-      fetch("/certificate", {method: "POST", headers: {Accept: "application/json",
-          "Content-Type": "application/json"}, body: jsonPayload })
-          .then( function() { console.log("ok"); }).catch( function() { console.log("Error while fetching data ... TODO"); });
-          
-
-
-    
+      fetch("/certificate", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonPayload
+      })
+        .then(function() {
+          console.log("ok");
+        })
+        .catch(function() {
+          console.log("Error while fetching data ... TODO");
+        });
 
       this.setState({ redirectToNewPage: true });
     } else {

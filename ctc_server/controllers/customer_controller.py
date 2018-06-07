@@ -34,7 +34,8 @@ class Customer(db.Model):
 class CustomerSchema(ma.Schema):
 	class Meta:
 		# what to expose
-		fields = ('id', 'name', 'email', 'password')
+		# no reason to expose password
+		fields = ('id', 'name', 'email')
 		
 customer_schema = CustomerSchema()
 customers_schema = CustomerSchema(many=True)

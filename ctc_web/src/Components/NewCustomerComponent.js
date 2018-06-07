@@ -53,7 +53,6 @@ class NewCustomerComponent extends Component {
   }
 
   submitFormData(jsonPayload) {
-
     fetch("/customer", {
       method: "POST",
       headers: {
@@ -62,15 +61,12 @@ class NewCustomerComponent extends Component {
       },
       body: jsonPayload
     })
-        .then(function() {
+      .then(function() {
         console.log("ok");
-    }).catch(function() {
+      })
+      .catch(function() {
         console.log("error");
-    });
-    
-    
-
-    
+      });
   }
 
   handleSubmit(event) {

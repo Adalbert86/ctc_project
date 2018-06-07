@@ -5,25 +5,11 @@ import { Button } from "react-bootstrap";
 class CertificateDeleteButton extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    fetch("/certificate/" + this.props.cert.id, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: []
-    });
-
-    event.preventDefault();
   }
 
   render() {
     return (
-      <Button bsStyle="danger" onClick={this.handleSubmit}>
+      <Button bsStyle="danger" onClick={this.props.onClick}>
         Delete
       </Button>
     );
