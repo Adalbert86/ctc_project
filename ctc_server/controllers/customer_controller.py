@@ -34,7 +34,8 @@ class Customer(db.Model):
 class CustomerSchema(ma.Schema):
 	class Meta:
 		# what to expose
-		fields = ('id', 'name', 'email', 'password')
+		# no reason to expose password
+		fields = ('id', 'name', 'email')
 		
 customer_schema = CustomerSchema()
 customers_schema = CustomerSchema(many=True)
@@ -53,7 +54,6 @@ def add_customer():
     db.session.add(new_customer)
     db.session.commit()
 
-    #response = jsonify(name=new_customer.name)
     response = new_customer.toJSON()
     response.status_code = 200
     return response
@@ -93,11 +93,6 @@ def customer_update(id):
 def customer_delete(id):
     customer = Customer.query.get(id)
 
-#     certificates = Certificate.query.filter(Certificate.customer_id == id)
-#     
-#     if certificates:
-#     	db.session.delete(certificates)
-    
     db.session.delete(customer)
     db.session.commit()
 
